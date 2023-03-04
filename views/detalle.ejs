@@ -1,0 +1,49 @@
+<%- include("template/cabecera", {tituloWeb: 'Nuevo Bar'}) %>
+<div class="container">
+  <h1>Editar el Bar</h1>
+  <% if (error) { %> <%= mensaje %>
+  <a href="/bar" class="btn btn-dark btn-block my-2"> Volver</a>
+  <% } %> <% if (!error) { %>
+    <form id="editar" data-id="<%= bar._id %>">
+        <input type="number" class="form-control my-2" name="id" id="idInput" value="<%= bar.id %>">
+        <input type="text" class="form-control my-2" name="nombre" id="nombreInput" value="<%= bar.nombre %>">
+        <input type="text" class="form-control my-2" name="tipo" id="tipoInput" value="<%= bar.tipo %>">
+        <input type="text" class="form-control my-2" name="descripcion" id="descripcionInput" value="<%= bar.descripcion %>">
+        <input type="text" class="form-control my-2" name="ubicacion" id="ubicacionInput" value="<%= bar.ubicacion %>">
+        <input type="text" class="form-control my-2" name="tipoComida" id="tipoComidaInput" value="<%= bar.tipoComida %>">
+        <button class="btn btn-primary btn-sm" type="submit">Actualizar</button>
+    </form>
+
+  <% } %> 
+  <%- include("template/footer")%>
+
+  <script>
+       const formEditar = document.querySelector('#editar');
+       formEditar.addEventListener('submit', async (e) =>{
+        e.preventDefault()
+        const id = formEditar.elements['id'].value;
+        const nombre = formEditar.elements['nombre'].value
+        const tipo = formEditar.elements['tipo'].value
+        const descripcion = formEditar.elements['descripcion'].value
+        const ubicacion = formEditar.elements['ubicacion'].value
+        const tipoComida = formEditar.elements['tipoComida'].value
+        const _id = formEditar.dataset.id
+        const data = await fetch(`/bar/${_id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id, nombre, tipo, descripcion, ubicacion, tipoComida})    
+        })
+        const res = await data.json()
+        if (res.estado) {
+            window.location.href = '/bar';
+        } else {
+            console.log(res)
+        }
+       }) 
+
+  </script>
+  
+
+</div>

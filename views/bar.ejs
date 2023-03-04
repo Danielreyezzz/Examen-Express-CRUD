@@ -1,0 +1,74 @@
+<%- include('template/cabecera', {tituloWeb: "Rincones de Sevilla"})%>
+<h1 class="text-center display-5 mb-3">Nuestros rincones</h1>
+</header>
+<div class="container">
+  <table class="table bg-white rounded">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Ubicacion</th>
+        <th scope="col">Tipo de comida</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if(arrayBar.length > 0){ %> <% arrayBar.forEach(bar => { %>
+      <tr>
+        <th scope="row"><%= bar.id %></th>
+        <td><%= bar.nombre %></td>
+        <td><%= bar.tipo %></td>
+        <td><%= bar.descripcion %></td>
+        <td><%= bar.ubicacion %></td>
+        <td><%= bar.tipoComida %></td>
+        <td>
+          <a class="btn btn-warning btn-sm" href="bar/<%= bar._id %>">
+            Editar</a
+          >
+        </td>
+        <td>
+          <button
+            class="btn btn-danger btn-sm"
+            data-id="<%= bar._id %>"
+            id="eliminar<%= bar._id %>"
+            onclick="deleteBar(this)"
+          >
+            Eliminar
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <% })} %>
+      </tr>
+    </tbody>
+  </table>
+
+  <h1>Crear</h1>
+  <a href="/bar/crear">Crear un nuevo bar</a>
+</div>
+
+<script>
+  async function deleteBar(id) {
+    const btnEliminar = id;
+    
+      console.log(btnEliminar.dataset.id);
+      try {
+        const data = await fetch(`/bar/${btnEliminar.dataset.id}`, {
+          method: "delete",
+        });
+        const res = await data.json();
+        console.log(res);
+        if (res.estado) {
+          window.location.href = "/bar";
+        } else {
+          console.log(res);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+  }
+  
+</script>
+
+<%- include("template/footer") %>
