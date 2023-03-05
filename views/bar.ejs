@@ -1,8 +1,9 @@
 <%- include('template/cabecera', {tituloWeb: "Rincones de Sevilla"})%>
-<h1 class="text-center display-5 mb-3">Nuestros rincones</h1>
+<h3 class="text-center display-5 mb-3">Nuestros rincones</h3>
+<p class="text-center p-2">Aquí podrás añadir, editar y borrar los bares que quieras:</p>
 </header>
 <div class="container">
-  <table class="table bg-white rounded">
+  <table class="table bg-warning rounded">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -23,7 +24,7 @@
         <td><%= bar.ubicacion %></td>
         <td><%= bar.tipoComida %></td>
         <td>
-          <a class="btn btn-warning btn-sm" href="bar/<%= bar._id %>">
+          <a class="btn btn-dark btn-sm" href="bar/<%= bar._id %>">
             Editar</a
           >
         </td>
@@ -44,8 +45,10 @@
     </tbody>
   </table>
 
-  <h1>Crear</h1>
-  <a href="/bar/crear">Crear un nuevo bar</a>
+  <h3 class="text-center display-5 pt-3">Crear un nuevo bar</h3>
+<div class="d-flex justify-content-center mt-3">
+  <a class="btn btn-dark w-50" href="/bar/crear">Ir a crear</a>
+</div>
 </div>
 
 <script>
